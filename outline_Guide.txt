@@ -1,0 +1,33 @@
+----------------------- OULINE -----------------------
+
+
+🔵 I → Insert → WCI-C
+(WritableDB → ContentValues → Insert → Check -1)
+
+🟢 R → Read → RQC-LC
+(ReadableDB → Query → Cursor Loop → List → Close)
+
+📌 MainActivity Actions:
+✔ Insert: Model → TryCatch → HelperAdd
+✔ View: Adapter → Listview
+
+
+
+
+
+
+🔴 D → Delete → RQD-C (SAME AS VIEW without loop & list)
+(ReadableDB → Query → Delete → Check -1)
+
+// only query change and delete
+
+
+🟠 U → Update → WCU-C (SAME AS INSERT)
+(WritableDB → ContentValues → Update → Check -1)
+
+// only update param change
+
+
+📌 MainActivity Actions:
+✔ Delete: Model → Delete 
+✔ Update: SetText → Model → HelperUpd 

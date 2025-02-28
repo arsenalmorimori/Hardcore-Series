@@ -1,0 +1,181 @@
+RAW SOURCE CODE
+
+
+//    ----------------------   CREATE   -----------------------
+		
+    public boolean addOne(CustomerModel customerModel){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+		
+        cv.put(COLUMN_CUSTOMER_NAME, customerModel.getName());
+        cv.put(COLUMN_CUSTOMER_AGE, customerModel.getAge());
+        cv.put(COLUMN_CUSTOMER_ACTIVE, customerModel.isActive());
+
+        long insert = db.insert(COLUMN_CUSTOMER_TABLE, null, cv);
+
+        return insert != -1;
+    }
+	
+	
+	    addBtn.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+		
+            CustomerModel customerModel;
+        
+			try {
+                customerModel = new CustomerModel(-1, Integer.parseInt(ageEt.getText().toString()), nameEt.getText().toString(), isActive.isChecked());
+            }catch (Exception e){
+                customerModel = new CustomerModel(-1, 0, "ERROR", false);
+            }
+
+            DatabaseHelper databaseHelper = new DatabaseHelper(MainActivity.this);
+            boolean b = databaseHelper.addOne(customerModel);
+            Toast.makeText(MainActivity.this, "ADDED", Toast.LENGTH_SHORT).show();
+            refresh();
+			addPage.setVisibility(View.GONE);
+
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+//    ----------------------   READ   -----------------------
+
+    public List<CustomerModel> getEveryone(){
+        List<CustomerModel> returnList = new ArrayList<>();
+        String queryString = "SELECT * FROM " + COLUMN_CUSTOMER_TABLE;
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if (cursor.moveToFirst()){
+            do{
+                int customerID = cursor.getInt(0);
+                String customerName = cursor.getString(1);
+                int customerAge = cursor.getInt(2);
+                boolean customerActive = cursor.getInt(3) == 1 ? true : false;
+
+                CustomerModel newCustomer = new CustomerModel(customerID,customerAge,customerName,customerActive);
+                returnList.add(newCustomer);
+            }while(cursor.moveToNext());
+        }else {
+
+        }
+		
+        cursor.close();
+        db.close();
+        return returnList;
+    }
+	
+	
+	private void extracted(){
+        adapter = new ArrayAdapter<CustomerModel>(MainActivity.this, android.R.layout.simple_dropdown_item_1line, databaseHelper.getEveryone());
+        listView.setAdapter(adapter);
+    }
+
+
+
+
+
+
+
+
+
+
+
+//    ----------------------   DELETE   -----------------------
+
+	public boolean deleteOne(CustomerModel customerModel){
+		SQLiteDatabase db = getReadableDatabase();
+		String queryString = "DELETE FROM " + COLUMN_CUSTOMER_TABLE + " WHERE " + COLUMN_ID + " = " + customerModel.getId();
+		Cursor cursor = db.rawQuery(queryString, null);
+		   
+		if(cursor.moveToFirst()){
+			return true;
+		}else{
+			return false;
+		}
+		   
+	}
+   
+   
+   
+       listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            CustomerModel clickCustomer = (CustomerModel) adapterView.getItemAtPosition(i);
+            databaseHelper.deleteOne(clickCustomer);
+			
+            refresh();
+            Toast.makeText(MainActivity.this, "DELETED", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+//    ----------------------   UPDATE   -----------------------
+
+	//UPDATE
+	public boolean updateOne(CustomerModel customerModel){
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues cv = new ContentValues();
+
+		cv.put(COLUMN_CUSTOMER_NAME, customerModel.getName());
+		cv.put(COLUMN_CUSTOMER_AGE, customerModel.getAge());
+		cv.put(COLUMN_CUSTOMER_ACTIVE, customerModel.isActive());
+
+		int update = (db.update(COLUMN_CUSTOMER_TABLE, cv, "id = ?", new String[]{String.valueOf(customerModel.getId())}));
+
+		return update != -1;
+	}
+
+
+    final int[] positionId = new int[1];
+    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+         @Override
+         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+             updateBox.setVisibility(View.VISIBLE);
+			 
+             CustomerModel clickCustomer = (CustomerModel) adapterView.getItemAtPosition(i);
+
+             nameUpdateEt.setText(clickCustomer.getName());
+             ageUpdateEt.setText(String.valueOf(clickCustomer.getAge()));
+             positionId[0] = clickCustomer.getId();
+         }
+     });
+
+
+
+     updateBtn.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+             String updateName = nameUpdateEt.getText().toString();
+             int updateAge = Integer.parseInt(ageUpdateEt.getText().toString());
+
+             CustomerModel customerModel = new CustomerModel(positionId[0], updateAge, updateName, isActive.isChecked());
+             databaseHelper.updateOne(customerModel);
+
+             boolean b = databaseHelper.updateOne(customerModel);
+             refresh();
+             updateBox.setVisibility(View.GONE);
+             Toast.makeText(MainActivity.this, "UPDATED", Toast.LENGTH_SHORT).show();
+         }
+     });
+
