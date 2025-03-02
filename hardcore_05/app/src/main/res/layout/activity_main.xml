@@ -18,10 +18,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <EditText
+            android:id="@+id/et_search"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:hint="Search..."/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="FINAL HARDCORE 05"/>
+
+        <Button
+            android:id="@+id/btn_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SORT"
+            android:backgroundTint="@color/red"/>
 
         <TextView
             android:id="@+id/tv_noData"
@@ -95,6 +107,55 @@
             android:text="BACK"/>
 
     </LinearLayout>
+
+
+<!--    SORT-->
+    <LinearLayout
+        android:id="@+id/sortPage"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_sortId"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/gray"
+            android:text="ID"/>
+        <Button
+            android:id="@+id/btn_sortItem"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/gray"
+            android:text="ITEM"/>
+        <Button
+            android:id="@+id/btn_sortPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/gray"
+            android:text="PRICE"/>
+
+        <Button
+            android:layout_marginTop="60dp"
+            android:id="@+id/btn_sortAsc"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/orange"
+            android:text="ASC"/>
+
+        <Button
+            android:id="@+id/btn_sortDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:backgroundTint="@color/red"
+            android:text="DESC"/>
+
+
+    </LinearLayout>
+
 </RelativeLayout>
 
 </RelativeLayout>

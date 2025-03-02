@@ -1,6 +1,8 @@
 package com.pack.hardcore_05;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,16 +21,29 @@ import androidx.core.view.WindowInsetsCompat;
 
 import org.w3c.dom.Text;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText et_item, et_price;
     TextView tv_noData;
     Button addList, btn_add, btn_back, btn_update;
 
-    LinearLayout addPage;
+    //    SORT
+    EditText et_search;
+    Button btn_sort,btn_sortAsc, btn_sortDesc, btn_sortId, btn_sortItem,btn_sortPrice;
+
+    LinearLayout addPage, sortPage;
     ListView listView;
 
     ArrayAdapter arrayAdapter;
+
+    String arrange = "ASC";
+    String sortBy = "a";
+
+
     DatabaseHelper databaseHelper = new DatabaseHelper(MainActivity.this);
 
     @Override
@@ -52,7 +67,16 @@ public class MainActivity extends AppCompatActivity {
         addPage = findViewById(R.id.addPage);
         listView = findViewById(R.id.listView);
         tv_noData = findViewById(R.id.tv_noData);
-        refresh();
+
+        et_search = findViewById(R.id.et_search);
+        sortPage = findViewById(R.id.sortPage);
+        btn_sort = findViewById(R.id.btn_sort);
+        btn_sortAsc = findViewById(R.id.btn_sortAsc);
+        btn_sortDesc = findViewById(R.id.btn_sortDesc);
+        btn_sortId = findViewById(R.id.btn_sortId);
+        btn_sortItem = findViewById(R.id.btn_sortItem);
+        btn_sortPrice = findViewById(R.id.btn_sortPrice);
+        refresh(arrange);
 
 //        ----------------- NAVIGATIONS -----------------
         addList.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 DatabaseHelper databaseHelper = new DatabaseHelper(MainActivity.this);
                 databaseHelper.addOne(addItem);
 
-                refresh();
+                refresh(arrange);
                 addPage.setVisibility(View.GONE);
                 Toast.makeText(MainActivity.this, "ADDED", Toast.LENGTH_SHORT).show();
             }
@@ -95,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 StoreModel deleteItem = (StoreModel) adapterView.getItemAtPosition(i);
                 databaseHelper.deleteOne(deleteItem);
 
-                refresh();
+                refresh(arrange);
                 Toast.makeText(MainActivity.this, "DELETED", Toast.LENGTH_SHORT).show();
                 return true;
             }
@@ -122,20 +146,93 @@ public class MainActivity extends AppCompatActivity {
                 StoreModel updateList = new StoreModel(id[0], et_item.getText().toString(), Integer.parseInt(et_price.getText().toString()));
                 boolean b = databaseHelper.updateOne(updateList);
 
-                refresh();
+                refresh(arrange);
                 addPage.setVisibility(View.GONE);
                 Toast.makeText(MainActivity.this, "UPDATED", Toast.LENGTH_SHORT).show();
             }
         });
 
+//        ----------------- SORT -----------------
+        String sort;
+        btn_sort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortPage.setVisibility(View.VISIBLE);
+            }
+        });
+        btn_sortAsc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                arrange = "ASC";
+                refresh(arrange);
+                sortPage.setVisibility(View.GONE);
+            }
+        });
+        btn_sortDesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                arrange = "DESC";
+                refresh(arrange);
+                sortPage.setVisibility(View.GONE);
+            }
+        });
+        btn_sortId.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortBy= "a";
+                btn_sortId.setBackgroundColor(getResources().getColor(R.color.green));
+                btn_sortItem.setBackgroundColor(getResources().getColor(R.color.gray));
+                btn_sortPrice.setBackgroundColor(getResources().getColor(R.color.gray));
+            }
+        });
+        btn_sortItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortBy= "b";
+                btn_sortId.setBackgroundColor(getResources().getColor(R.color.gray));
+                btn_sortItem.setBackgroundColor(getResources().getColor(R.color.green));
+                btn_sortPrice.setBackgroundColor(getResources().getColor(R.color.gray));
+            }
+        });
+        btn_sortPrice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sortBy= "c";
+                btn_sortId.setBackgroundColor(getResources().getColor(R.color.gray));
+                btn_sortItem.setBackgroundColor(getResources().getColor(R.color.gray));
+                btn_sortPrice.setBackgroundColor(getResources().getColor(R.color.green));
+            }
+        });
 
+//        ----------------- SEARCH -----------------
+ et_search.addTextChangedListener(new TextWatcher() {
+     @Override
+     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+     }
 
+     @Override
+     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        arrayAdapter.getFilter().filter(charSequence);
+     }
+
+     @Override
+     public void afterTextChanged(Editable editable) {
+
+     }
+ });
     }
 
     //        ----------------- VIEW -----------------
-    private void refresh(){
-        arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_expandable_list_item_1, databaseHelper.getEveryone());
+    private void refresh(String arrange){
+        if(sortBy.equals("a")) {
+            arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_expandable_list_item_1, databaseHelper.getEveryone(arrange));
+        } else if (sortBy.equals("b")) {
+            arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_expandable_list_item_1, databaseHelper.getItemm(arrange));
+        }else{
+            arrayAdapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_expandable_list_item_1, databaseHelper.getPrice(arrange));
+
+        }
         listView.setAdapter(arrayAdapter);
 
         tv_noData.setVisibility(arrayAdapter.isEmpty() ? View.VISIBLE : View.GONE);

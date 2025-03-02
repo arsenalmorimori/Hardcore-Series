@@ -48,10 +48,59 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 //    ------------------- VIEW -------------------
-    public List<StoreModel> getEveryone(){
+    public List<StoreModel> getEveryone(String arange){
         SQLiteDatabase db = this.getReadableDatabase();
         List<StoreModel> returnList = new ArrayList<>();
-        String query = "SELECT * FROM " + STORE_TABLE;
+        String query = "SELECT * FROM " + STORE_TABLE + " ORDER BY " + COLUMN_ID + " COLLATE NOCASE " + arange;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()){
+            do {
+                int id = cursor.getInt(0);
+                String item = cursor.getString(1);
+                int price = cursor.getInt(2);
+
+                StoreModel storeModel = new StoreModel(id, item, price);
+                returnList.add(storeModel);
+
+            }while (cursor.moveToNext());
+        }else {
+
+        }
+
+        cursor.close();
+        db.close();
+        return returnList;
+
+    }
+    public List<String> getPrice(String arange){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<String> returnList = new ArrayList<>();
+        String query = "SELECT * FROM " + STORE_TABLE + " ORDER BY " + COLUMN_PRICE + " COLLATE NOCASE " + arange ;
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()){
+            do {
+                String item = cursor.getString(1);
+                int price = cursor.getInt(2);
+
+                returnList.add(item + "  :  " + price);
+
+            }while (cursor.moveToNext());
+        }else {
+
+        }
+
+        cursor.close();
+        db.close();
+        return returnList;
+
+    }
+
+    public List<StoreModel> getItemm(String arange){
+        SQLiteDatabase db = this.getReadableDatabase();
+        List<StoreModel> returnList = new ArrayList<>();
+        String query = "SELECT * FROM " + STORE_TABLE + " ORDER BY " + COLUMN_ITEM + " COLLATE NOCASE " + arange ;
         Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()){
