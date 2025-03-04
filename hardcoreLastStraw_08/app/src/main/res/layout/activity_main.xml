@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/bg">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg"
+        android:layout_margin="40dp"
+        android:gravity="center"
+        android:foregroundGravity="center">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="horizontal">
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:hint="Search"
+                android:paddingLeft="20dp"
+                android:background="@drawable/searchbar"
+                android:fontFamily="sans-serif-condensed"
+                android:layout_marginRight="40dp"/>
+
+                <Button
+                    android:id="@+id/btn_profilePage"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="_"
+                    android:backgroundTint="@color/blue"/>
+
+            </LinearLayout>
+            <Button
+                android:id="@+id/btn_sortPage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="Sort by "
+                android:textSize="20sp"
+                app:cornerRadius="15dp"
+                android:backgroundTint="@color/bg"
+                android:textColor="@color/black"/>
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_noData"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:fontFamily="sans-serif-condensed"
+                android:insetTop="0dp"
+                android:gravity="center"
+                android:insetBottom="0dp"
+                android:text="NO DATA"
+                android:textSize="30sp"/>
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="30dp">
+
+            <Button
+                android:id="@+id/btn_addPage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/purple"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="+" />
+        </RelativeLayout>
+
+
+
+
+
+        
+
+
+
+
+<!--        SORT PAGE-->
+        <LinearLayout
+            android:layout_marginTop="120dp"
+            android:visibility="visible"
+            android:id="@+id/sortPage"
+            android:orientation="vertical"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/searchbar">
+
+            <Button
+                android:id="@+id/btn_sortNameAsc"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="NAME  A-Z"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                app:cornerRadius="10dp" />
+            <Button
+                android:id="@+id/btn_sortNameDesc"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="NAME  Z-A"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                app:cornerRadius="10dp" />
+            <Button
+                android:id="@+id/btn_sortPriceAsc"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="PRICE  0-9"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                app:cornerRadius="10dp" />
+            <Button
+                android:id="@+id/btn_sortPriceDesc"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="PRICE  9-0"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                app:cornerRadius="10dp" />
+
+            <Button
+                android:id="@+id/btn_sortIdAsc"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="NEWEST"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                app:cornerRadius="10dp" />
+            <Button
+                android:id="@+id/btn_sortIdDesc"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/black"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="OLDEST"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                app:cornerRadius="10dp" />
+        </LinearLayout>
+
+        
+        
+        
+        
+<!--        SELECT  -->
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/selectPage"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/bg2"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:foregroundGravity="center"
+            android:layout_marginTop="140dp">
+            <TextView
+                android:id="@+id/tv_select"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:text="Title"
+                android:textSize="30sp"/>
+            <TextView
+                android:layout_marginTop="30dp"
+                android:id="@+id/tv_selectEdit"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:text="EDIT"
+                android:textColor="@color/purple"
+                android:textSize="20sp"/>
+            <TextView
+                android:id="@+id/tv_selectDelete"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:text="DELETE"
+                android:textColor="@color/red"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tv_selectBack"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:text="BACK"
+                android:textColor="@color/gray"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--        ADD PAGE  -->
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/addPage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg"
+            android:orientation="vertical">
+            <TextView
+                android:layout_marginTop="120dp"
+                android:id="@+id/tv_add"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:text="ADD LIST"
+                android:textSize="30sp"/>
+
+            <EditText
+                android:id="@+id/et_item"
+                android:layout_marginTop="120dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/textbox"
+                android:fontFamily="sans-serif-condensed"
+                android:hint="Item"
+                android:paddingLeft="30dp"
+                android:textSize="20sp"/>
+
+            <EditText
+                android:id="@+id/et_price"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/textbox"
+                android:fontFamily="sans-serif-condensed"
+                android:hint="Price"
+                android:paddingLeft="30dp"
+                android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/btn_add"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginTop="70dp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="DONE"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/purple"
+                android:textSize="20sp"
+                app:cornerRadius="15dp" />
+            <Button
+                android:visibility="gone"
+                android:id="@+id/btn_update"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginTop="70dp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="UPDATE"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/purple"
+                android:textSize="20sp"
+                app:cornerRadius="15dp" />
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/tv_back"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center"
+                android:text="BACK"
+                android:textColor="@color/gray"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

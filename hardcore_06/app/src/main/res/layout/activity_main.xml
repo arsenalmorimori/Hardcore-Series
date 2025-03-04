@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="40dp">
+
+        <Button
+            android:id="@+id/userBtn"
+            android:text="_"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:backgroundTint="@color/white"
+        android:layout_margin="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="search..." />
+
+            <Button
+                android:id="@+id/sortBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:text="Sort" />
+
+            <TextView
+                android:id="@+id/tv_noData"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No Data"
+                android:textSize="50dp"/>
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/linearLayout"
+            android:gravity="center"
+            android:foregroundGravity="center"
+            android:layout_marginBottom="50dp">
+            <Button
+                android:id="@+id/addList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/green"
+                android:gravity="center"
+                android:foregroundGravity="center"
+                android:text="Add" />
+        </RelativeLayout>
+
+
+<!--        ADD -->
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/addPage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:gravity="center">
+            <EditText
+                android:id="@+id/et_item"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="item"/>
+            <EditText
+                android:id="@+id/et_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="quantity"/>
+            <Button
+                android:layout_marginTop="150dp"
+                android:id="@+id/btn_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add"
+                android:backgroundTint="@color/green"/>
+            <Button
+                android:id="@+id/btn_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Update"
+                android:backgroundTint="@color/orange"/>
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BACK"
+                android:backgroundTint="@color/gray"/>
+        </LinearLayout>
+
+
+
+<!--        Sort -->
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/sortPage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:gravity="center">
+            <Button
+                android:id="@+id/btn_sortId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID"
+                android:backgroundTint="@color/gray"/>
+            <Button
+                android:id="@+id/btn_sortItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Item"
+                android:backgroundTint="@color/gray"/>
+            <Button
+                android:id="@+id/btn_sortQuantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:backgroundTint="@color/gray"/>
+
+
+            <Button
+                android:layout_marginTop="150dp"
+                android:id="@+id/btn_sortAsc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ASC"
+                android:backgroundTint="@color/orange"/>
+            <Button
+                android:id="@+id/btn_sortDesc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DESC"
+                android:backgroundTint="@color/red"/>
+        </LinearLayout>
+
+
+
+
+
+<!--        USER-->
+        <LinearLayout
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:id="@+id/usernamePage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tv_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HELO"
+                android:textSize="30dp"/>
+
+            <EditText
+                android:layout_marginTop="30dp"
+                android:id="@+id/et_username"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Username..."/>
+
+            <Button
+                android:id="@+id/btn_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DONE"
+                android:backgroundTint="@color/red"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>
